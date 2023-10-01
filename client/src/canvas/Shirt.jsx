@@ -5,6 +5,7 @@ import {useFrame} from '@react-three/fiber'
 import {Decal, useGLTF, useTexture} from '@react-three/drei'
 
 import state from '../store'
+useGLTF.preload('/shirt_baked.glb');
 
 const Shirt = () => {
   const snap = useSnapshot(state)
@@ -50,5 +51,6 @@ const Shirt = () => {
     </group>
   )
 }
+
 
 export default Shirt
