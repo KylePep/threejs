@@ -16,7 +16,7 @@ const Customizer = () => {
 
   const [file, setFile] = useState('')
   
-  const [prompt, setPromt] = useState('')
+  const [prompt, setPrompt] = useState('')
   const [generatingImg, setGeneratingImg] = useState(false)
 
   const [activeEditorTab, setActiveEditorTab] = useState("")
@@ -51,7 +51,19 @@ const Customizer = () => {
   const handleSubmit = async (type) => {
     if (!prompt ) return alert ("Please enter a prompt")
     try {
-      // call our backed to generate an ai image
+      setGeneratingImg(true)
+      const response = await fetch('http://localhost:8080/api/v1/dalle', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt
+        }),
+      })
+
+      const data = await response.json()
+      handleDecals(type, `data:image/png;base64,${data.photo}`)
     } catch (error) {
       alert(error)
     } finally {
